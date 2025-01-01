@@ -45,16 +45,21 @@ public class KnifeManager : MonoBehaviour
         }
         KnifeList[0].SetActive(true);
     }
-
-    public void SetDisableKnifeIconColor(){
-        KnifeIconList[(KnifeIconList.Count - 1) - KnifeIndex ].GetComponent<SpriteRenderer>().color = disabledColor;
-
-    }
     public void SetActiveKnife(){
-        if(KnifeIndex < KnifeCount - 1 ){
-            KnifeIndex++;
-            KnifeList[KnifeIndex].SetActive(true);
-        }
-
+    if (KnifeIndex < KnifeCount - 1) {
+        SetDisableKnifeIconColor(); 
+        KnifeIndex++;
+        KnifeList[KnifeIndex].SetActive(true);
+    } else if (KnifeIndex == KnifeCount - 1) {
+        // اگر آخرین چاقو است، رنگ آن را غیرفعال کن
+        SetDisableKnifeIconColor(); 
     }
+}
+
+public void SetDisableKnifeIconColor(){
+    if (KnifeIndex > 0) { // اطمینان از اینکه ایندکس معتبر است
+        KnifeIconList[KnifeIndex - 1].GetComponent<SpriteRenderer>().color = disabledColor;
+    }
+}
+
 }
